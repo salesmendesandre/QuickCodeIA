@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="mod/quickcodeia/db" VERSION="20250412" COMMENT="XMLDB file for Moodle mod_quickcodeia"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd">
+
+  <TABLES>
+
+    <!-- Tabla principal de instancias del módulo -->
+    <TABLE NAME="quickcodeia" COMMENT="Stores the quickcodeia activity module instances.">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+        <FIELD NAME="intro" TYPE="text"/>
+        <FIELD NAME="introformat" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0"/>
+        <FIELD NAME="statement" TYPE="text"/>
+        <FIELD NAME="solutioncode" TYPE="text"/>
+        
+        <FIELD NAME="language" TYPE="char" LENGTH="50" NOTNULL="true"  DEFAULT="python"/>
+        <FIELD NAME="duedate"  TYPE="int"  LENGTH="10" NOTNULL="true"  DEFAULT="0"/>
+
+        <FIELD NAME="enablehints" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0"/>
+        <FIELD NAME="enableconsole" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0"/>
+        <FIELD NAME="maxhints" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="fk_course" TYPE="foreign" FIELDS="course" REFTABLE="course" REFFIELDS="id"/>
+      </KEYS>
+    </TABLE>
+
+    <!-- Tabla para guardar estado del ejercicio por usuario -->
+    <TABLE NAME="quickcodeia_state" COMMENT="Estado del ejercicio para cada usuario">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="cmid" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="code" TYPE="text"/>
+        <FIELD NAME="terminal_output" TYPE="text"/>
+        <FIELD NAME="execution_count" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+        <FIELD NAME="hints_used" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+        <FIELD NAME="console_calls" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="chat_state" TYPE="text" COMMENT="Estado del chat en formato JSON"/>
+        <FIELD NAME="teacher_feedback" TYPE="text" COMMENT="Comentario del profesor"/>
+        <FIELD NAME="current_status" TYPE="text"/>
+        <FIELD NAME="autoscore" TYPE="float" NOTNULL="false" COMMENT="Puntuación calculada automáticamente"/>
+
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="useruniq" TYPE="unique" FIELDS="userid,cmid"/>
+      </KEYS>
+    </TABLE>
+
+  </TABLES>
+</XMLDB>

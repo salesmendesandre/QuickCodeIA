@@ -1,0 +1,50 @@
+# ======================
+# 🔧 MOODLE & DOCKER DATA
+# ======================
+moodle/                 # Código de Moodle
+moodle_data/            # Archivos de sesión, usuarios, archivos subidos
+mysql_data/             # Base de datos persistente
+ollama_data/            # Archivos de OLLAMA
+# ======================
+# 📦 BACKUPS & COMPRESSION
+# ======================
+*.zip
+*.tar.gz
+*.tgz
+*.gz
+
+# ======================
+# 🗑️ TEMP FILES (Sistema operativo)
+# ======================
+.DS_Store
+Thumbs.db
+
+# ======================
+# 🧹 LOGS & CACHÉ DE MOODLE
+# ======================
+*.log
+cache/
+localcache/
+sessions/
+temp/
+
+# ======================
+# 📝 ARCHIVOS PERSONALES / DEBUG
+# ======================
+user.txt
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ======================
+# 🧰 NODE / VUE / FRONTEND
+# ======================
+node_modules/
+dist/
+*.local.js
+
+# ======================
+# 🧠 IDE / EDITOR
+# ======================
+.vscode/
+.idea/
