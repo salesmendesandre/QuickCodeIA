@@ -1,83 +1,93 @@
-# QuickCodeIA Solver
+# QuickCodeIA CodeRunner
 
-Frontend application built with **Vue 3 + Vite**, designed to serve as the interactive coding interface for the QuickCode IA system.
+This service provides a secure, containerized backend to **compile and execute student code** in multiple programming languages for the [QuickCode IA](https://github.com/salesmendesandre/QuickCodeIA) plugin in Moodle.
 
----
+### ✅ Supported languages:
 
-## 🚀 Features
-
-- ✨ Built with Vue 3 + Vite
-- 🧠 Integrated with AI hints and console help
-- 🖥️ Syntax highlighting and code editor
-- 📡 Communicates with a backend using `postMessage`
-- 🔧 Executes code via external APIs
+- Python
+- C
+- Verilog (via Icarus Verilog)
+- Java (via OpenJDK)
 
 ---
 
-## 📦 Project Structure
+## 📁 Project Structure
 
 ```
-quickcodeia_solver/
-├── public/            # Static assets
-├── src/
-│   ├── assets/        # Icons, styles, etc.
-│   ├── components/    # Vue components (editor, console, hints...)
-│   ├── views/         # Main layout/view
-│   ├── App.vue
-│   └── main.js
-├── index.html         # Entry point
-├── vite.config.js     # Vite config
+quickcodeia_coderunner/
+├── main.py       # FastAPI backend with /compile endpoint
+├── Dockerfile    # Docker image with compiler/runtime tools
 ```
 
 ---
 
-## 🧪 Development
+## 🚀 How it works
 
-Install dependencies:
+The FastAPI service exposes a single endpoint:
+
+### `POST /compile`
+
+**Request example:**
+
+```json
+{
+  "language": "python", // or "c", "verilog", "java"
+  "code": "print('Hello')"
+}
+```
+
+**Response example:**
+
+```json
+{
+  "stdout": "Hello\n",
+  "stderr": "",
+  "exit_code": 0
+}
+```
+
+---
+
+## 🐳 Docker usage
+
+### Build the image:
 
 ```bash
-npm install
+docker build -t quickcodeia_coderunner .
 ```
 
-Start development server:
+### Run the container:
 
 ```bash
-npm run dev
+docker run -p 8000:8000 quickcodeia_coderunner
 ```
 
-Access the app at: [http://localhost:5173](http://localhost:5173)
+Once running, the server will be available at:
 
----
-
-## 🏗️ Production Build
-
-```bash
-npm run build
 ```
-
-The output will be in the `dist/` directory.
-
-To ensure assets use relative paths (useful when embedding), set this in `vite.config.js`:
-
-```js
-export default defineConfig({
-  base: './',
-});
+http://localhost:8000/compile
 ```
 
 ---
 
-## 🛠️ Tech Stack
+## 🔧 Installed tools (inside Docker)
 
-- [Vue 3](https://vuejs.org/)
-- [Vite](https://vitejs.dev/)
-- [Monaco Editor](https://microsoft.github.io/monaco-editor/) or [CodeMirror]
-- [highlight.js](https://highlightjs.org/)
-- [Material Design Icons](https://cdn.jsdelivr.net/npm/@mdi/font/)
+- `python3` for Python
+- `gcc` for C
+- `openjdk-17-jdk` for Java
+- `iverilog` and `vvp` for Verilog
 
+---
+
+## 🛡️ Security & Limitations
+
+- Code is executed in a temporary sandboxed directory.
+- Maximum execution timeout: **5 seconds**
+- This setup is intended for **educational/demo purposes**.
+  
 ---
 
 ## 📄 License
 
-Distributed under the terms of the GNU GPL v3.  
-See [LICENSE](https://www.gnu.org/licenses/gpl-3.0.html) for more details.
+This project is distributed under the terms of the **GNU General Public License v3**.  
+See [LICENSE](https://www.gnu.org/licenses/gpl-3.0.html) for full details.
