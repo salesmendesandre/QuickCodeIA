@@ -21,5 +21,8 @@ RUN printf "<Directory /var/www/html>\n\
 </Directory>\n" > /etc/apache2/conf-available/moodle.conf && \
     a2enconf moodle
 
-
 RUN a2enmod rewrite
+
+RUN mkdir -p /var/www/moodledata && \
+    chown -R www-data:www-data /var/www/moodledata && \
+    chmod -R 775 /var/www/moodledata
