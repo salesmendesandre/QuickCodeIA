@@ -5,7 +5,7 @@ import tempfile
 import os
 from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI()
+app = FastAPI(root_path="/coderunner")
 
 app.add_middleware(
     CORSMiddleware,
