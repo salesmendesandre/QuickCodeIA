@@ -40,7 +40,7 @@ services:
     ports:
     - 8081:8000
     restart: unless-stopped
-    
+
   ollama:
     image: ollama/ollama
     container_name: ollama
