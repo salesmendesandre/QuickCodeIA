@@ -5,6 +5,7 @@ import { Ollama } from 'ollama/browser'
 import { useExerciseStore } from './exercise'
 
 const backendOllamaUrl = import.meta.env.VITE_BACKEND_OLLAMA_URL
+const ollameModel=import.meta.env.VITE_BACKEND_OLLAMA_MODEL
 const ollama = new Ollama({ host: backendOllamaUrl })
 
 marked.setOptions({
@@ -79,8 +80,8 @@ export const useChatIAStore = defineStore('chatia', {
       exerciseStore.incrementHintsUsed()
 
       this.sendPrompt({
-        prompt: 'Me das una pista par resolver el ejercicio. Jamás me digas la solución directamente.',
-        showText: 'Me das una pista par resolver el ejercicio.',
+        prompt: 'Me das una pista para resolver el ejercicio. Jamás me digas la solución directamente.',
+        showText: 'Me das una pista para resolver el ejercicio.',
         appendRules: true
       })
 
@@ -136,7 +137,7 @@ export const useChatIAStore = defineStore('chatia', {
 
         let fullText = ''
         const response = await ollama.chat({
-          model: 'llama3',
+          model: ollameModel,
           messages: [...this.chatHistory],
           stream: true
         })
