@@ -42,10 +42,18 @@ chmod +x download_moodle.sh
 
 ### 2️⃣ Construir y levantar los contenedores con Docker
 
+Comenta la siguiente línea en el archivo `docker-compose-dev.yml o docker-compose-prod.yml`:
+
+```yaml
+# - ./quickcodeia:/var/www/html/mod/quickcodeia
+```
+
 Ejecuta el siguiente comando para construir la imagen y ejecutar los contenedores:
 
 ```bash
-docker compose up -d --build
+docker-compose -f docker-compose-dev.yml up -d --build
+
+docker-compose -f docker-compose-prod.yml up -d --build
 ```
 
 Este comando iniciará:
@@ -71,7 +79,7 @@ Este comando iniciará:
 
 ### Instalación del módulo QuickCodeIA
 
-Descomenta la siguiente línea en el archivo `docker-compose.yml`:
+Descomenta la siguiente línea en el archivo `docker-compose-dev.yml o docker-compose-prod.yml`:
 
 ```yaml
 - ./quickcodeia:/var/www/html/mod/quickcodeia
